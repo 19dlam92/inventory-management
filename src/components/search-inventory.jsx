@@ -12,7 +12,7 @@ function SearchInventory(props) {
   const searchClicked = (e) => {
     e.preventDefault();
 
-    props.callback({
+    props.updateSearchParams({
       name : name,
       price : price,
       type : type,
@@ -25,13 +25,13 @@ function SearchInventory(props) {
     return (
         <div>
           <h2>Search for an Item</h2>
-          <form onClick={ searchClicked }>
+          <form>
             <label htmlFor="name-field">Name: </label>
             <input 
               id="name-field" type="text" value={ name } 
               onChange = {(e) => setName(e.target.value)}
             />
-            <label htmlFor="price-field">Price: </label>
+            <label htmlFor="price-field">Max Price: </label>
             <input 
               id="price-field" type="number" value={ price } 
               onChange = {(e) => setPrice(e.target.value)}
@@ -46,7 +46,7 @@ function SearchInventory(props) {
               id="brand-field" type="text" value={ brand } 
               onChange = {(e) => setBrand(e.target.value)}
             />
-            <input type="submit">Search</input>
+            <button type="submit" onClick={ searchClicked }>Search</button>
           </form>
         </div>
     );

@@ -1,21 +1,31 @@
 import './App.css';
 import { useState } from 'react';
 import SearchInventory from './components/search-inventory';
+import AddInventory from './components/add-inventory';
+import DisplayInventory from './components/display-inventory';
 
 function App() {
-  const [data, setData] = useState({});
+  const [filters, setFilters] = useState({});
+  const [data, setData] = useState({ items : [] })
 
-  const updateData = (searchParams) => {
-    setData(searchParams);
+  const updateFilters = (searchParams) => {
+    setFilters(searchParams);
   }
+
+  const addItemToData = (item) => {
+    let items = data["items"];
+    item.id = items.length;
+    items.push(item);
+    setData({ items : items});
+  }
+
+
 
   return (
     <div className="App">
-      <SearchInventory callback = { updateData }/>
-      <p>Name: { "name" in data ? data["name"] : "No data to display" }</p>
-      <p>Price: { "price" in data ? data["price"] : "No data to display" }</p>
-      <p>Type: { "type" in data ? data["type"] : "No data to display" }</p>
-      <p>Brand: { "brand" in data ? data["brand"] : "No data to display" }</p>
+      <SearchInventory updateSearchParams = { updateFilters }/>
+      <DisplayInventory items = { data["items"] }/>
+      <AddInventory addItemToData = { addItemToData }/>
     </div>
   );
 }
